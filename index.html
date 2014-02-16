@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>dalli-klick-js</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="container" class="container">
+      <div id="header" class="page-header">
+        <h1>dalli-klick-js <small>an image guessing game</small></h1>
+      </div>
+      <div id="upload_message" class="alert alert-success hidden"></div>
+      <div id="jumbotron" class="jumbotron">
+        <span id="step-1">
+        <div id="holder"></div>
+        <p id="status" class="hidden"><small>File API & FileReader API not supported</small></p>
+        <p><span class="label label-primary">Step 1</span> Drag images from your computer on the drop zone above</p>
+        </span>
+        <span id="step-2" class="hidden">
+        <p><span class="label label-primary">Step 2</span> Select the number of parts used to obscure the image and if pixelate should be active</p>
+        <form role="form" oninput="numberOfPartsOutput.value=numberOfParts.value" id="settingsform">
+          <div class="form-group">
+            <label for="numberOfParts">Number of parts</label>
+            <input type="range" class="form-control" id="numberOfParts" min="10" max="100" value="15">
+            <output name="numberOfPartsOutput">15</output>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="pixelate" value="1"> Use pixelate
+            </label>
+          </div>
+          <button type="submit" class="btn btn-success">Start the game</button>
+        </form>
+        </span>
+      </div>
+      <div id="game" class="game">
+        <img id="game-image" class="game-image">
+        <canvas id="game-canvas" class="game-canvas hidden"></canvas>
+      </div>
+    </div>
+    <script src="vendor/bootstrap-without-jquery/bootstrap-without-jquery.min.js"></script>
+    <script src="vendor/rhill-voronoi-core.min.js"></script>
+    <script src="main.js"></script>
+    <script src="voronoi.js"></script>
+  </body>
+</html>
