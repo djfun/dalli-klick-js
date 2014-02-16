@@ -59,6 +59,8 @@ function evaluate_settings_form(e) {
   document.getElementById('header').classList.add('hidden');
   document.getElementById('jumbotron').classList.add('hidden');
   document.getElementById('container').className = 'container-fluid';
+  game_canvas.classList.remove('hidden');
+  game_image.classList.remove('hidden');
   game();
   return false;
 }
@@ -136,7 +138,20 @@ function game() {
 function step(n) {
   if (n === 0) {
     current_image++;
-    game();
+    if (current_image >= files.length) {
+      // reset everything
+      current_image = 0;
+      game_canvas.classList.add('hidden');
+      game_image.classList.add('hidden');
+      document.getElementsByTagName("body")[0].style.backgroundColor = 'white';
+      document.getElementById('header').classList.remove('hidden');
+      document.getElementById('jumbotron').classList.remove('hidden');
+      document.getElementById('container').className = 'container';
+      step_1.classList.remove('hidden');
+      step_2.classList.add('hidden');
+    } else {
+      game();
+    }
   } else {
     var ctx = game_canvas.getContext('2d');
     ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
@@ -151,11 +166,13 @@ function step(n) {
         new_resolution = 1;
       } else if (n / number_of_parts < 0.7) {
         new_resolution = 16;
+      } else {
+        new_resolution = 24;
       }
 
       if (new_resolution !== pixelate_resolution) {
         if (new_resolution === 1) {
-          myPixelation.canvas.parentNode.replaceChild( myPixelation.img, myPixelation.canvas );
+          myPixelation.canvas.parentNode.replaceChild(myPixelation.img, myPixelation.canvas);
         } else {
           myPixelation.render([{
             resolution: new_resolution
