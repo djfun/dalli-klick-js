@@ -102,6 +102,11 @@ function game() {
       game_image.onload = function() {
         var dimension = [game_image.offsetWidth, game_image.offsetHeight];
         console.log(dimension);
+
+        // to fix problems with same width rendered differently on different elements
+        // better give the canvas 1 pixel more
+        dimension[0]++;
+
         game_canvas.width = dimension[0];
         game_canvas.height = dimension[1];
         game_canvas.style.top = game_image.offsetTop + 'px';
