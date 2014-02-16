@@ -13,6 +13,8 @@ var random_cells;
 
 var number_of_parts = 15;
 var pixelate = false;
+var myPixelation;
+var pixelate_resolution;
 
 if (typeof window.FileReader === 'undefined') {
   state.classList.add('fail');
@@ -53,7 +55,7 @@ holder.ondrop = function(e) {
 function evaluate_settings_form(e) {
   e.preventDefault();
   number_of_parts = document.getElementById('numberOfParts').value;
-  pixelate = document.getElementById('pixelate').value === '1' ? true : false;
+  pixelate = document.getElementById('pixelate').checked;
   document.getElementById('header').classList.add('hidden');
   document.getElementById('jumbotron').classList.add('hidden');
   document.getElementById('container').className = 'container-fluid';
@@ -105,6 +107,12 @@ function game() {
         game_canvas.style.top = game_image.offsetTop + 'px';
         game_canvas.style.left = game_image.offsetLeft + 'px';
 
+        if (pixelate) {
+          myPixelation = new ClosePixelation(game_image, [{
+            resolution: 24
+          }]);
+        }
+
         VoronoiRenderer.init(game_canvas, number_of_parts, game_canvas.width, game_canvas.height);
         random_cells = [];
 
@@ -131,6 +139,28 @@ function step(n) {
     for (var i = 0; i <= random_cells.length; i++) {
       VoronoiRenderer.renderCell(random_cells[i], 'black', 'black');
     }
+
+    if (pixelate) {
+      var new_resolution;
+      if (n / number_of_parts < 0.4) {
+        new_resolution = 1;
+      } else if (n / number_of_parts < 0.7) {
+        new_resolution = 16;
+      }
+
+      if (new_resolution !== pixelate_resolution) {
+        if (new_resolution === 1) {
+          myPixelation.canvas.parentNode.replaceChild( myPixelation.img, myPixelation.canvas );
+        } else {
+          myPixelation.render([{
+            resolution: new_resolution
+          }]);
+        }
+        pixelate_resolution = new_resolution;
+      }
+      console.log(new_resolution);
+    }
+
     document.onkeypress = function(e) {
       step(n - 1);
     };
