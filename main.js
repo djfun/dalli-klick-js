@@ -43,6 +43,10 @@ holder.ondrop = function(e) {
   step_1.classList.add('hidden');
   step_2.classList.remove('hidden');
 
+  settingsform.addEventListener('input', numberOfParts_on_input);
+  // and for IE 11
+  document.getElementById('numberOfParts').addEventListener('change', numberOfParts_on_input);
+
   window.setTimeout(function() { // hide alert message
     upload_message.classList.add('hidden');
   }, 5000);
@@ -51,6 +55,10 @@ holder.ondrop = function(e) {
 
   return false;
 };
+
+function numberOfParts_on_input(e) {
+  document.getElementById('numberOfPartsOutput').innerHTML = document.getElementById('numberOfParts').value;
+}
 
 function evaluate_settings_form(e) {
   e.preventDefault();
@@ -67,6 +75,7 @@ function evaluate_settings_form(e) {
 
 function game() {
   document.getElementsByTagName("body")[0].style.backgroundColor = 'black';
+  document.getElementById('start-button').disabled = true;
 
   // to hide everything
   game_canvas.style.top = '0';
@@ -144,6 +153,8 @@ function step(n) {
       game_canvas.classList.add('hidden');
       game_image.classList.add('hidden');
       document.getElementsByTagName("body")[0].style.backgroundColor = 'white';
+      document.getElementById('start-button').disabled = false;
+      document.onkeypress = null;
       document.getElementById('header').classList.remove('hidden');
       document.getElementById('jumbotron').classList.remove('hidden');
       document.getElementById('container').className = 'container';
