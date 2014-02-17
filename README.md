@@ -22,7 +22,7 @@ External libraries used
 -----------------------
 * [twitter bootstrap](http://getbootstrap.com) (MIT)
 * [Bootstrap without jQuery](https://github.com/tagawa/bootstrap-without-jquery) (MIT)
-* [Close Pixelate](http://desandro.com/resources/close-pixelate/) (MIT)
+* [Close Pixelate](http://close-pixelate.desandro.com/) (MIT)
 * [Javascript-Voronoi](https://github.com/gorhill/Javascript-Voronoi) (MIT)
 
 License
