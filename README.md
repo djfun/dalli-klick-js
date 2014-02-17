@@ -2,7 +2,7 @@ dalli-klick-js
 ==============
 **dalli-klick-js** is a html/javascript version of the image guessing game Dalli Klick from the German TV show Dalli Dalli.
 
-Tested in Chrome 26 and Firefox 27.
+Tested in Chrome 26, Firefox 27 and Internet Explorer 11.
 
 Usage
 -----
@@ -10,7 +10,9 @@ Usage
 2. Load one or more images into the game
 3. Select the number of parts used to obscure the image and if pixelate should be active
 4. Start the game
-5. Have fun
+5. Press any key to remove a random black part
+6. Repeat
+7. Have fun
 
 Demo
 ----
