@@ -23,18 +23,18 @@
         </span>
         <span id="step-2" class="hidden">
         <p><span class="label label-primary">Step 2</span> Select the number of parts used to obscure the image and if pixelate should be active</p>
-        <form role="form" oninput="numberOfPartsOutput.value=numberOfParts.value" id="settingsform">
+        <form role="form" id="settingsform">
           <div class="form-group">
             <label for="numberOfParts">Number of parts</label>
             <input type="range" class="form-control" id="numberOfParts" min="10" max="100" value="15">
-            <output name="numberOfPartsOutput">15</output>
+            <output name="numberOfPartsOutput" id="numberOfPartsOutput">15</output>
           </div>
           <div class="checkbox">
             <label>
               <input type="checkbox" id="pixelate" value="1"> Use pixelate
             </label>
           </div>
-          <button type="submit" class="btn btn-success">Start the game</button>
+          <button type="submit" class="btn btn-success" id="start-button">Start the game</button>
         </form>
         </span>
       </div>
