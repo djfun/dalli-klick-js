@@ -12,6 +12,10 @@ Usage
 4. Start the game
 5. Have fun
 
+Demo
+----
+[dalli-klick-js on github pages](http://djfun.github.io/dalli-klick-js/)
+
 External libraries used
 -----------------------
 * [twitter bootstrap](http://getbootstrap.com) (MIT)
