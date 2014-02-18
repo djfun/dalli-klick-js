@@ -1,0 +1,17 @@
+CACHE MANIFEST
+      
+# Version 1
+
+CACHE:
+/css/bootstrap.min.css
+/css/main.js
+/vendor/bootstrap-without-jquery.min.js
+/vendor/close-pixelate.js
+/vendor/rhill-voronoi-core.min.js
+/main.js
+/voronoi.js
+
+FALLBACK:
+
+NETWORK:
+*
