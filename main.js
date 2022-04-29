@@ -42,7 +42,17 @@ holder.ondrop = function(e) {
   files = e.dataTransfer.files;
 
   upload_message.innerHTML = "Selected " + files.length + " files.";
+  let fileTable = document.createElement('table');
+  fileTable.classList.add('table', 'table-striped');
+  fileTable.innerHTML = "<thead><tr><th>#</th><th>File Name</th></tr></thead>";
+  let fileTableBody = document.createElement('tbody');
+  for(let i = 0; i < files.length; i++) {
+    fileTableBody.innerHTML += "<tr><th>" + (i+1)  + "</th><th>" + files[i].name + "</th></tr>";
+  }
+  fileTable.appendChild(fileTableBody);
+  uploaded_files_box.appendChild(fileTable);
   upload_message.classList.remove('hidden');
+  uploaded_files_box.classList.remove('hidden');
   step_1.classList.add('hidden');
   step_2.classList.remove('hidden');
 
@@ -92,6 +102,7 @@ function game() {
 
   game_image.src = '';
   upload_message.classList.add('hidden');
+  uploaded_files_box.classList.add('hidden');
   document.getElementById('game').classList.remove('hidden');
   game_image.style.top = '0';
   game_canvas.classList.remove('hidden');
