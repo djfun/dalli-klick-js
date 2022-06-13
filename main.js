@@ -1,6 +1,7 @@
 var holder = document.getElementById('holder'),
   state = document.getElementById('status'),
   upload_message = document.getElementById('upload_message'),
+  uploaded_files_box = document.getElementById('uploaded_files_box'),
   step_1 = document.getElementById('step-1'),
   step_2 = document.getElementById('step-2'),
   settingsform = document.getElementById('settingsform'),
@@ -15,6 +16,8 @@ var number_of_parts = 15;
 var pixelate = false;
 var myPixelation;
 var pixelate_resolution;
+
+var number_of_parts_left;
 
 if (typeof window.FileReader === 'undefined') {
   state.classList.add('fail');
@@ -39,7 +42,17 @@ holder.ondrop = function(e) {
   files = e.dataTransfer.files;
 
   upload_message.innerHTML = "Selected " + files.length + " files.";
+  let fileTable = document.createElement('table');
+  fileTable.classList.add('table', 'table-striped');
+  fileTable.innerHTML = "<thead><tr><th>#</th><th>File Name</th></tr></thead>";
+  let fileTableBody = document.createElement('tbody');
+  for(let i = 0; i < files.length; i++) {
+    fileTableBody.innerHTML += "<tr><th>" + (i+1)  + "</th><th>" + files[i].name + "</th></tr>";
+  }
+  fileTable.appendChild(fileTableBody);
+  uploaded_files_box.appendChild(fileTable);
   upload_message.classList.remove('hidden');
+  uploaded_files_box.classList.remove('hidden');
   step_1.classList.add('hidden');
   step_2.classList.remove('hidden');
 
@@ -89,6 +102,7 @@ function game() {
 
   game_image.src = '';
   upload_message.classList.add('hidden');
+  uploaded_files_box.classList.add('hidden');
   document.getElementById('game').classList.remove('hidden');
   game_image.style.top = '0';
   game_canvas.classList.remove('hidden');
@@ -137,6 +151,8 @@ function game() {
         }
         shuffle(random_cells);
         step(number_of_parts);
+        number_of_parts_left = number_of_parts;
+        document.addEventListener ('keydown',  reportKeyEvent);
       };
     };
   };
@@ -160,6 +176,7 @@ function step(n) {
       document.getElementById('container').className = 'container';
       step_1.classList.remove('hidden');
       step_2.classList.add('hidden');
+      document.removeEventListener('keydown',  reportKeyEvent);
     } else {
       game();
     }
@@ -193,11 +210,22 @@ function step(n) {
       }
       console.log(new_resolution);
     }
-
-    document.onkeypress = function(e) {
-      step(n - 1);
-    };
   }
+}
+
+function reportKeyEvent (zEvent) {
+
+  //--- Was a Ctrl-Space pressed?
+  if (zEvent.ctrlKey && zEvent.key === " ") {
+    this.hitCnt = ( this.hitCnt || 0 ) + 1;
+    while (number_of_parts_left > 0){
+      step(number_of_parts_left --)
+    }
+  } else if (!zEvent.ctrlKey){
+    step(number_of_parts_left --);
+  }
+  zEvent.stopPropagation ();
+  zEvent.preventDefault ()
 }
 
 function shuffle(array) {
